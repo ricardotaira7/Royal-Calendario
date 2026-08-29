@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendário Social Media · Royal Odontologia</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/MoRvBto.png">
+<link rel="apple-touch-icon" href="https://i.imgur.com/MoRvBto.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================ TOKENS ============================================================ */
+:root{
+  --ink:#08120e;
+  --ink-2:#0c1813;      /* dia não útil */
+  --ink-3:#0f1e17;      /* dia útil */
+  --ink-4:#14271e;      /* hover */
+  --white:#eef3ef;
+  --muted:#93a79c;
+  --gray:#5f6f67;
+  --green:#1f9d74;      /* verde da Royal (provisório até a logo) */
+  --green-soft:#57d3ab;
+  --green-deep:#0e6b4e;
+  --gold:#d4af37;
+  --gold-soft:#eccf7f;
+  --gold-deep:#9c7a1e;
+  --line:rgba(212,175,55,.20);
+  --line-2:rgba(87,211,171,.12);
+  --shadow:0 22px 60px -28px rgba(0,0,0,.92);
+  --glow:0 16px 34px -18px rgba(31,157,116,.55);
+  --radius:16px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:radial-gradient(1200px 700px at 80% -8%,rgba(31,157,116,.10),transparent 60%),
+             radial-gradient(900px 500px at -5% 10%,rgba(212,175,55,.07),transparent 55%),
+             var(--ink);
+  color:var(--white);font-family:'Manrope',system-ui,-apple-system,sans-serif;line-height:1.5;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:rgba(31,157,116,.34);color:#fff}
+img{display:block}
+
+/* ============================================================ TOPBAR ============================================================ */
+.topbar{
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;
+  padding:12px clamp(16px,4vw,44px);background:rgba(8,18,14,.74);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line-2);animation:slideDown .8s var(--ease) both;
+}
+@keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0;text-decoration:none;color:inherit}
+.brand__logo{width:42px;height:42px;border-radius:12px;overflow:hidden;box-shadow:0 6px 16px -8px rgba(0,0,0,.65);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease);animation:pop .7s var(--ease) both}
+.brand__logo img{width:100%;height:100%;object-fit:cover}
+.brand:hover .brand__logo{transform:rotate(-5deg) scale(1.06);box-shadow:0 10px 24px -8px rgba(212,175,55,.5)}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.brand__txt{display:flex;flex-direction:column;line-height:1.15}
+.brand__txt b{font-size:14px;letter-spacing:.02em;font-weight:700}
+.brand__txt span{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--green-soft)}
+.navmonths{margin-left:auto;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.navmonths::-webkit-scrollbar{display:none}
+.navmonths a{flex:0 0 auto;font-size:12px;font-weight:600;letter-spacing:.04em;padding:7px 13px;border-radius:999px;color:var(--muted);border:1px solid transparent;text-decoration:none;white-space:nowrap;transition:transform .3s var(--ease),color .3s var(--ease),background .3s var(--ease),border-color .3s var(--ease)}
+.navmonths a:hover{color:var(--white);border-color:var(--line);transform:translateY(-2px)}
+.navmonths a:active{transform:translateY(0) scale(.96)}
+.navmonths a.active{color:var(--green-soft);border-color:rgba(31,157,116,.45);background:rgba(31,157,116,.10)}
+
+/* ============================================================ HERO ============================================================ */
+.hero{position:relative;z-index:1;padding:clamp(46px,8vw,96px) clamp(16px,4vw,44px) clamp(30px,5vw,60px);max-width:1280px;margin:0 auto;overflow:hidden}
+.hero__glow{position:absolute;inset:-20% -10% auto;height:520px;pointer-events:none;z-index:-1;animation:fadeIn 1.4s var(--ease) both}
+.hero__glow::before,.hero__glow::after{content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
+.hero__glow::before{width:540px;height:540px;left:8%;top:-8%;background:radial-gradient(circle,rgba(31,157,116,.30),transparent 66%);animation:drift 18s var(--ease) infinite alternate}
+.hero__glow::after{width:420px;height:420px;right:6%;top:12%;background:radial-gradient(circle,rgba(212,175,55,.20),transparent 66%);animation:drift 22s var(--ease) infinite alternate-reverse}
+@keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(40px,26px,0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.hero__mark{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.hero__logo{width:62px;height:62px;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px -12px rgba(0,0,0,.8);animation:floaty 6s ease-in-out infinite}
+.hero__logo img{width:100%;height:100%;object-fit:cover}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero__mark span{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.hero__mark b{display:block;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);font-weight:600;letter-spacing:.02em}
+
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:11.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--green-soft);font-weight:700;margin-bottom:20px}
+.eyebrow::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--green))}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(42px,8vw,88px);line-height:.98;letter-spacing:-.01em;margin-bottom:10px}
+.hero h1 .shine{background:linear-gradient(100deg,var(--white) 16%,var(--green-soft) 34%,var(--gold-soft) 50%,var(--green-soft) 66%,var(--white) 84%);background-size:230% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 8s linear infinite}
+@keyframes shine{to{background-position:-230% 0}}
+.hero__sub{max-width:640px;color:var(--muted);font-size:clamp(15px,1.7vw,18px);margin-top:14px}
+.hero__sub b{color:var(--white);font-weight:600}
+.hero__sub .cli{color:var(--green-soft);font-weight:700}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.stat{background:linear-gradient(160deg,var(--ink-3),var(--ink-2));border:1px solid var(--line-2);border-radius:var(--radius);padding:20px 18px;position:relative;overflow:hidden;transition:transform .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease)}
+.stat::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
+.stat:hover{transform:translateY(-5px);border-color:var(--line);box-shadow:var(--shadow)}
+.stat:hover::after{opacity:1}
+.stat__k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.stat__v{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.4vw,38px);font-weight:600;margin-top:6px;color:var(--gold-soft);line-height:1.02}
+.stat__v.sm{font-size:clamp(19px,2.3vw,25px)}
+.stat__d{font-size:12.5px;color:var(--gray);margin-top:4px}
+
+/* GUIA (única legenda) */
+.guidepanel{margin-top:16px;background:linear-gradient(160deg,var(--ink-3),var(--ink-2));border:1px solid var(--line-2);border-radius:var(--radius);padding:20px 24px;transition:border-color .4s var(--ease)}
+.guidepanel:hover{border-color:var(--line)}
+.guidepanel__t{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.guidepanel__t svg{width:14px;height:14px}
+.guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px 22px}
+.guide>div{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--muted)}
+.guide .sw{width:22px;height:16px;border-radius:5px;flex-shrink:0;border:1px solid var(--line-2)}
+.sw--work{background:var(--ink-3)}
+.sw--off{background:var(--ink-2)}
+.sw--royal{background:var(--green)}
+.sw--nac{background:rgba(212,175,55,.18);border-color:var(--line)}
+.sw--fac{background:rgba(238,243,239,.06)}
+.tip{position:relative;cursor:help;outline:none;color:var(--green-soft)!important;font-weight:600}
+.tip .sw--info{display:grid;place-items:center;background:rgba(31,157,116,.16);color:var(--green-soft);font-size:10px;font-weight:800;border-color:rgba(31,157,116,.4)}
+.tip__pop{position:absolute;left:0;bottom:calc(100% + 10px);width:250px;background:var(--ink-4);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:11.5px;line-height:1.45;color:var(--white);box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .28s var(--ease),transform .28s var(--ease);z-index:8}
+.tip__pop::after{content:"";position:absolute;top:100%;left:22px;border:6px solid transparent;border-top-color:var(--ink-4)}
+.tip:hover .tip__pop,.tip:focus-visible .tip__pop{opacity:1;transform:none}
+
+/* ============================================================ MESES ============================================================ */
+.stage{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:36px clamp(16px,4vw,44px) 40px}
+.stage::before{content:"";position:absolute;left:clamp(16px,4vw,44px);top:60px;bottom:120px;width:1px;background:linear-gradient(180deg,transparent,var(--line) 6%,var(--line) 94%,transparent)}
+.month{position:relative;padding-left:clamp(22px,4vw,52px);margin-bottom:clamp(40px,6vw,72px)}
+.month__node{position:absolute;left:calc(clamp(16px,4vw,44px) - clamp(22px,4vw,52px) - 5px);top:9px;width:11px;height:11px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(212,175,55,.14)}
+.month.in .month__node{animation:nodePulse 2.6s var(--ease) infinite}
+@keyframes nodePulse{0%,100%{box-shadow:0 0 0 5px rgba(212,175,55,.14)}50%{box-shadow:0 0 0 9px rgba(212,175,55,.04)}}
+.month__head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.month__name{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.6vw,46px);font-weight:600;letter-spacing:.01em}
+.month__year{font-size:13px;letter-spacing:.28em;color:var(--gold);font-weight:700}
+.month__meta{margin-left:auto;font-size:12px;color:var(--gray)}
+
+.weekhead{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px}
+.weekhead div{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center;padding:4px 0}
+.weekhead div:nth-child(6),.weekhead div:nth-child(7){color:var(--gray)}
+
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day{position:relative;min-height:118px;border-radius:12px;padding:9px 9px 8px;text-align:left;background:var(--ink-3);border:1px solid var(--line-2);display:flex;flex-direction:column;gap:6px;font:inherit;color:inherit;overflow:hidden;opacity:0;transition:transform .32s var(--ease),border-color .32s var(--ease),background .32s var(--ease),box-shadow .32s var(--ease)}
+.month.in .day{animation:dayIn .5s var(--ease) both;animation-delay:calc(var(--i,0)*1ms)}
+@keyframes dayIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.day::before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:0;transition:opacity .32s}
+.day.clk{cursor:pointer}
+.day.clk:hover{transform:translateY(-5px) scale(1.015);border-color:rgba(87,211,171,.5);background:var(--ink-4);box-shadow:var(--glow)}
+.day.has:hover::before{opacity:1}
+.day.clk:hover .day__num{color:var(--green-soft)}
+.day:focus-visible{outline:2px solid var(--green-soft);outline-offset:2px}
+.day--pad{background:transparent;border:1px dashed rgba(238,243,239,.04);min-height:118px;opacity:1}
+.day--weekend,.day--holiday{background:var(--ink-2)}
+.day--weekend .day__num,.day--holiday .day__num{color:var(--muted)}
+.day__num{font-size:16px;font-weight:700;color:var(--white);display:flex;align-items:center;gap:6px;transition:color .32s var(--ease)}
+.day__num small{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+
+.holiday{margin-top:auto;font-size:10px;line-height:1.25;letter-spacing:.02em;font-weight:600;padding:4px 7px;border-radius:7px;display:flex;align-items:flex-start;gap:5px}
+.holiday::before{content:"";width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.holiday--nac{background:rgba(212,175,55,.1);color:var(--gold-soft)}
+.holiday--nac::before{background:var(--gold)}
+.holiday--dist{background:rgba(212,175,55,.07);color:#e4d3a4}
+.holiday--dist::before{background:var(--gold-soft)}
+.holiday--fac{background:rgba(238,243,239,.05);color:var(--muted)}
+.holiday--fac::before{background:var(--gray)}
+
+.chips{display:flex;flex-direction:column;gap:4px}
+.chip{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:4px 7px;border-radius:7px;background:rgba(31,157,116,.10);border-left:3px solid var(--green);transition:transform .3s var(--ease)}
+.day.clk:hover .chip{transform:translateX(2px)}
+.chip svg{width:12px;height:12px;flex-shrink:0;opacity:.9;color:var(--green-soft)}
+.chip time{margin-left:auto;font-size:10px;color:var(--muted);font-weight:600}
+.chip__txt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.more{font-size:10px;color:var(--green-soft);font-weight:700;letter-spacing:.04em}
+
+.m-ind{display:none;gap:5px;margin-top:auto;align-items:center}
+.mi{width:9px;height:9px;border-radius:50%}
+.mi--dot{background:var(--green)}
+.mi--num{width:auto;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--green);color:#04150f;font-size:10px;font-weight:800;display:grid;place-items:center}
+.mi--nac,.mi--dist{background:var(--gold)}
+.mi--fac{background:var(--gray)}
+
+/* ============================================================ MODAL ============================================================ */
+.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal__bg{position:absolute;inset:0;background:rgba(4,10,7,.74);backdrop-filter:blur(6px);animation:fadeIn .3s var(--ease)}
+.modal__card{position:relative;width:min(460px,100%);max-height:86vh;overflow:auto;background:linear-gradient(160deg,var(--ink-4),var(--ink-2));border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:var(--shadow);animation:pop2 .36s var(--ease)}
+@keyframes pop2{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.modal__date{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--green-soft)}
+.modal__wd{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:18px}
+.modal__close{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--line-2);color:var(--white);cursor:pointer;display:grid;place-items:center;transition:transform .35s var(--ease),background .35s var(--ease),border-color .35s var(--ease)}
+.modal__close:hover{background:rgba(31,157,116,.18);border-color:rgba(31,157,116,.45);transform:rotate(90deg)}
+.ev{border:1px solid var(--line-2);border-radius:14px;padding:16px;margin-bottom:12px;border-left:4px solid var(--green);animation:evIn .4s var(--ease) both}
+.ev:nth-child(2){animation-delay:.05s}.ev:nth-child(3){animation-delay:.1s}.ev:nth-child(4){animation-delay:.15s}
+@keyframes evIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ev__top{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.ev__cli{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--green-soft)}
+.ev__time{margin-left:auto;font-size:13px;font-weight:700;color:var(--white)}
+.ev__title{font-size:16px;font-weight:700;margin-bottom:10px}
+.ev__row{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-top:5px}
+.ev__row svg{width:14px;height:14px;color:var(--green-soft);flex-shrink:0}
+.ev__row b{color:var(--white);font-weight:600}
+.stbadge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px}
+.stbadge span{width:6px;height:6px;border-radius:50%}
+.modal__empty{color:var(--muted);font-size:14px;padding:8px 0 4px}
+
+/* ============================================================ FOOTER ============================================================ */
+.foot{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:34px clamp(16px,4vw,44px) 64px;border-top:1px solid var(--line-2);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.foot__brand{display:flex;align-items:center;gap:13px}
+.foot__logo{width:40px;height:40px;border-radius:11px;overflow:hidden;flex-shrink:0;box-shadow:0 6px 16px -8px rgba(0,0,0,.6)}
+.foot__logo img{width:100%;height:100%;object-fit:cover}
+.foot__brand b{font-size:14px;font-weight:700;color:var(--white);display:block}
+.foot__brand span{font-size:12px;color:var(--gray)}
+.foot__by{display:flex;align-items:center;gap:10px;text-decoration:none;padding:9px 15px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted);font-size:13px;transition:transform .35s var(--ease),border-color .35s var(--ease),color .35s var(--ease),background .35s var(--ease)}
+.foot__by svg{width:19px;height:19px;color:var(--green-soft);transition:color .35s var(--ease)}
+.foot__by b{color:var(--gold-soft);font-weight:700}
+.foot__by:hover{transform:translateY(-2px);border-color:var(--line);background:rgba(31,157,116,.08);color:var(--white)}
+.foot__by:hover svg{color:var(--gold-soft)}
+
+/* ============================================================ BOTÃO VOLTAR AO TOPO ============================================================ */
+.totop{position:fixed;right:clamp(16px,4vw,32px);bottom:clamp(16px,4vw,32px);z-index:60;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;display:grid;place-items:center;color:#04150f;background:linear-gradient(135deg,var(--green-soft),var(--green) 55%,var(--green-deep));box-shadow:0 14px 30px -10px rgba(31,157,116,.6),0 0 0 1px rgba(238,243,239,.06);opacity:0;transform:translateY(20px) scale(.8);pointer-events:none;transition:opacity .4s var(--ease),transform .4s var(--ease),box-shadow .4s var(--ease)}
+.totop svg{width:22px;height:22px}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 20px 40px -12px rgba(212,175,55,.5),0 0 0 1px var(--gold)}
+.totop:active{transform:translateY(0) scale(.95)}
+
+/* ============================================================ REVEAL ============================================================ */
+.reveal{opacity:0;transform:translateY(24px);filter:blur(6px);transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease)}
+.reveal.in{opacity:1;transform:none;filter:none}
+[data-stagger]{transition-delay:var(--d,0ms)}
+
+/* ============================================================ RESPONSIVO ============================================================ */
+@media(max-width:920px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){
+  .brand__txt{display:none}
+  .day,.day--pad{min-height:60px}
+  .day{padding:6px 5px;gap:3px;justify-content:flex-start}
+  .day__num{font-size:13px}
+  .day__num small{display:none}
+  .chips,.holiday{display:none}
+  .m-ind{display:flex}
+  .weekhead div{font-size:9.5px;letter-spacing:.04em}
+  .grid,.weekhead{gap:5px}
+  .navmonths a{padding:6px 10px;font-size:11px}
+  .hero__logo{width:54px;height:54px}
+  .foot{justify-content:flex-start}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal,.day{opacity:1;transform:none;filter:none}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="Início">
+    <span class="brand__logo"><img src="https://i.imgur.com/MoRvBto.png" alt="Royal Odontologia"></span>
+    <div class="brand__txt">
+      <b>Social Media · Planejamento</b>
+      <span>Royal Odontologia</span>
+    </div>
+  </a>
+  <nav class="navmonths" id="nav" aria-label="Navegação por mês"></nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero__glow"></div>
+  <div class="hero__mark reveal">
+    <span class="hero__logo"><img src="https://i.imgur.com/MoRvBto.png" alt="Royal Odontologia"></span>
+    <span>Cliente<b>Royal Odontologia</b></span>
+  </div>
+  <p class="eyebrow reveal" data-stagger style="--d:60ms">Contrato · 6 meses</p>
+  <h1 class="reveal" data-stagger style="--d:120ms">Calendário <span class="shine">Social Media</span></h1>
+  <p class="hero__sub reveal" data-stagger style="--d:200ms">
+    Painel de planejamento do cronograma de conteúdo da <span class="cli">Royal Odontologia</span>,
+    de <b>setembro de 2026</b> a <b>fevereiro de 2027</b>.
+  </p>
+
+  <div class="stats">
+    <div class="stat reveal" data-stagger style="--d:140ms"><div class="stat__k">Período</div><div class="stat__v sm">Setembro a Fevereiro</div><div class="stat__d">2026 · 2027</div></div>
+    <div class="stat reveal" data-stagger style="--d:220ms"><div class="stat__k">Duração</div><div class="stat__v">6</div><div class="stat__d">meses de contrato</div></div>
+    <div class="stat reveal" data-stagger style="--d:300ms"><div class="stat__k">Feriados oficiais</div><div class="stat__v">8</div><div class="stat__d">+ 5 pontos facultativos</div></div>
+    <div class="stat reveal" data-stagger style="--d:380ms"><div class="stat__k">Atividades</div><div class="stat__v" id="stAtiv">0</div><div class="stat__d">no cronograma</div></div>
+  </div>
+
+  <div class="guidepanel reveal" data-stagger style="--d:220ms">
+    <div class="guidepanel__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>Como ler o calendário</div>
+    <div class="guide">
+      <div><span class="sw sw--work"></span>Dia útil</div>
+      <div><span class="sw sw--off"></span>Fim de semana e feriado</div>
+      <div><span class="sw sw--royal"></span>Atividade da Royal</div>
+      <div><span class="sw sw--nac"></span>Feriado nacional / DF</div>
+      <div><span class="sw sw--fac"></span>Ponto facultativo</div>
+      <div class="tip" tabindex="0"><span class="sw sw--info">i</span>Detalhes do dia
+        <span class="tip__pop">Cada dia com atividade abre um cartão com cliente, categoria, horário, status e observação. No computador é só clicar; no celular, toque no dia marcado.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MESES -->
+<main class="stage" id="stage"></main>
+
+<!-- MODAL -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal__bg" data-close></div>
+  <div class="modal__card">
+    <button class="modal__close" data-close aria-label="Fechar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal__date" id="mDate"></div>
+    <div class="modal__wd" id="mWd"></div>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot__brand">
+    <span class="foot__logo"><img src="https://i.imgur.com/MoRvBto.png" alt="Royal Odontologia"></span>
+    <div><b>Royal Odontologia</b><span>Calendário Social Media · set/2026 a fev/2027</span></div>
+  </div>
+  <a class="foot__by" href="https://www.instagram.com/ricardo_taira" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="1.15" fill="currentColor" stroke="none"/></svg>
+    <span>Desenvolvido por <b>@ricardo_taira</b></span>
+  </a>
+</footer>
+
+<!-- VOLTAR AO TOPO -->
+<button class="totop" id="totop" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+/* ============================================================ CONFIGURAÇÃO ============================================================ */
+const CLIENT={ name:'Royal Odontologia', short:'Royal', color:'#1f9d74' };
+
+const STATUS={
+  planejado:{ label:'Planejado',   color:'#93a79c' },
+  confirmado:{ label:'Confirmado', color:'#d4af37' },
+  producao:{ label:'Em produção',  color:'#7fa8c9' },
+  concluido:{ label:'Concluído',   color:'#2fb488' },
+  cancelado:{ label:'Cancelado',   color:'#c0705e' }
+};
+
+const ICONS={
+  camera:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+  video:'<path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>',
+  rec:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4" fill="currentColor" stroke="none"/>',
+  send:'<path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/>',
+  stories:'<circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="4"/>',
+  design:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/>',
+  meet:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  report:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M8 9h2"/>',
+  route:'<circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M9 19h6a4 4 0 0 0 0-8H9a4 4 0 0 1 0-8h0"/>',
+  dot:'<circle cx="12" cy="12" r="4"/>',
+  tag:'<path d="M20.6 13.4 12 22l-9-9V4h9z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/>',
+  note:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>'
+};
+
+const CATEGORIES={
+  fotos:{ label:'Captação de fotos',  icon:'camera' },
+  videos:{ label:'Captação de vídeos', icon:'video' },
+  gravacao:{ label:'Gravação',        icon:'rec' },
+  postagem:{ label:'Postagem',        icon:'send' },
+  stories:{ label:'Stories',          icon:'stories' },
+  design:{ label:'Design',            icon:'design' },
+  reuniao:{ label:'Reunião',          icon:'meet' },
+  atendimento:{ label:'Atendimento',  icon:'chat' },
+  relatorio:{ label:'Relatório',      icon:'report' },
+  deslocamento:{ label:'Deslocamento',icon:'route' },
+  outros:{ label:'Outros',            icon:'dot' }
+};
+
+/* Feriados nacionais e do DF no período (verificados). fac = ponto facultativo. */
+const HOLIDAYS={
+  '2026-09-07':{name:'Independência do Brasil', type:'nacional'},
+  '2026-10-12':{name:'N. Sra. Aparecida',       type:'nacional'},
+  '2026-11-02':{name:'Finados',                  type:'nacional'},
+  '2026-11-15':{name:'Proclamação da República', type:'nacional'},
+  '2026-11-20':{name:'Consciência Negra',        type:'nacional'},
+  '2026-11-30':{name:'Dia do Evangélico (DF)',   type:'distrital'},
+  '2026-12-24':{name:'Véspera de Natal',         type:'facultativo'},
+  '2026-12-25':{name:'Natal',                    type:'nacional'},
+  '2026-12-31':{name:'Véspera de Ano Novo',      type:'facultativo'},
+  '2027-01-01':{name:'Confraternização Univ.',   type:'nacional'},
+  '2027-02-08':{name:'Carnaval',                 type:'facultativo'},
+  '2027-02-09':{name:'Carnaval',                 type:'facultativo'},
+  '2027-02-10':{name:'Quarta-feira de Cinzas',   type:'facultativo'}
+};
+
+/* ============================================================
+   ATIVIDADES  (preenchidas via conversa; formato abaixo)
+   'AAAA-MM-DD':[ {category:'fotos', title:'...', time:'09:00',
+                   status:'planejado', note:'...'} ]
+   ============================================================ */
+const ACTIVITIES={
+  // ainda sem atividades cadastradas
+};
+
+/* ============================================================ RENDER ============================================================ */
+const MONTHS=[[2026,8],[2026,9],[2026,10],[2026,11],[2027,0],[2027,1]];
+const MN=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const WD=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+const WDS=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+const iso=(y,m,d)=>`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+const svg=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+
+document.getElementById('nav').innerHTML=MONTHS
+  .map(o=>`<a href="#m-${o[0]}-${o[1]}">${MN[o[1]].slice(0,3)} ${String(o[0]).slice(2)}</a>`).join('');
+
+const stage=document.getElementById('stage');
+MONTHS.forEach(o=>{
+  const [y,m]=o;
+  const first=new Date(y,m,1);
+  const offset=(first.getDay()+6)%7;
+  const total=new Date(y,m+1,0).getDate();
+  const trail=(7-((offset+total)%7))%7;
+  let cells='';
+  for(let i=0;i<offset;i++) cells+=`<div class="day--pad" aria-hidden="true"></div>`;
+  for(let d=1;d<=total;d++){
+    const key=iso(y,m,d);
+    const dow=new Date(y,m,d).getDay();
+    const weekend=dow===0||dow===6;
+    const hol=HOLIDAYS[key];
+    const evs=ACTIVITIES[key]||[];
+    const t=hol?(hol.type==='nacional'?'nac':hol.type==='distrital'?'dist':'fac'):'';
+    const cls=['day'];
+    if(weekend) cls.push('day--weekend');
+    if(hol) cls.push('day--holiday');
+    if(evs.length) cls.push('has');
+    if(evs.length||hol) cls.push('clk');
+    const idx=offset+d-1;
+    let inner=`<div class="day__num">${d}${weekend?`<small>${dow===6?'Sáb':'Dom'}</small>`:''}</div>`;
+    if(evs.length){
+      inner+=`<div class="chips">`;
+      evs.slice(0,3).forEach(e=>{
+        const cat=CATEGORIES[e.category]||CATEGORIES.outros;
+        inner+=`<div class="chip">${svg(ICONS[cat.icon])}<span class="chip__txt">${e.title||cat.label}</span>${e.time?`<time>${e.time}</time>`:''}</div>`;
+      });
+      if(evs.length>3) inner+=`<div class="more">+${evs.length-3} mais</div>`;
+      inner+=`</div>`;
+    }
+    if(hol) inner+=`<div class="holiday holiday--${t}"><span class="hd-txt">${hol.name}</span></div>`;
+    let mi='';
+    if(evs.length) mi+= evs.length>1?`<span class="mi mi--num">${evs.length}</span>`:`<span class="mi mi--dot"></span>`;
+    if(hol) mi+=`<span class="mi mi--hol mi--${t}"></span>`;
+    inner+=`<div class="m-ind">${mi}</div>`;
+    const tag=(evs.length||hol)?`role="button" tabindex="0"`:'';
+    cells+=`<div class="${cls.join(' ')}" data-date="${key}" style="--i:${idx*20}" ${tag}>${inner}</div>`;
+  }
+  for(let i=0;i<trail;i++) cells+=`<div class="day--pad" aria-hidden="true"></div>`;
+  const wk=Math.ceil((offset+total)/7);
+  const sec=document.createElement('section');
+  sec.className='month reveal';
+  sec.id=`m-${y}-${m}`;
+  sec.innerHTML=`
+    <span class="month__node"></span>
+    <div class="month__head">
+      <h2 class="month__name">${MN[m]}</h2>
+      <span class="month__year">${y}</span>
+      <span class="month__meta">${total} dias · ${wk} semanas</span>
+    </div>
+    <div class="weekhead">${WDS.map(w=>`<div>${w}</div>`).join('')}</div>
+    <div class="grid">${cells}</div>`;
+  stage.appendChild(sec);
+});
+
+(function(){let n=0;Object.values(ACTIVITIES).forEach(l=>n+=l.length);document.getElementById('stAtiv').textContent=n;})();
+
+/* ============================================================ MODAL ============================================================ */
+const modal=document.getElementById('modal');
+function openDay(key){
+  const [Y,M,D]=key.split('-').map(Number);
+  const dow=(new Date(Y,M-1,D).getDay()+6)%7;
+  document.getElementById('mDate').textContent=`${D} de ${MN[M-1]} de ${Y}`;
+  document.getElementById('mWd').textContent=WD[dow];
+  const evs=ACTIVITIES[key]||[];
+  const hol=HOLIDAYS[key];
+  let html='';
+  if(hol){
+    const lab=hol.type==='nacional'?'Feriado nacional':hol.type==='distrital'?'Feriado distrital (DF)':'Ponto facultativo';
+    html+=`<div class="ev"><div class="ev__title" style="margin:0">${hol.name}</div><div class="ev__row">${svg(ICONS.tag)}<span>${lab}</span></div></div>`;
+  }
+  evs.forEach(e=>{
+    const cat=CATEGORIES[e.category]||CATEGORIES.outros;
+    const st=STATUS[e.status];
+    html+=`<div class="ev">
+      <div class="ev__top"><span class="ev__cli">${CLIENT.name}</span>${e.time?`<span class="ev__time">${e.time}</span>`:''}</div>
+      <div class="ev__title">${e.title||cat.label}</div>
+      <div class="ev__row">${svg(ICONS[cat.icon])}<span>${cat.label}</span></div>
+      ${st?`<div class="ev__row">${svg(ICONS.tag)}<span class="stbadge" style="background:${st.color}22;color:${st.color}"><span style="background:${st.color}"></span>${st.label}</span></div>`:''}
+      ${e.note?`<div class="ev__row">${svg(ICONS.note)}<span><b>Obs.:</b> ${e.note}</span></div>`:''}
+    </div>`;
+  });
+  if(!hol && !evs.length) html=`<div class="modal__empty">Nenhuma atividade cadastrada neste dia.</div>`;
+  document.getElementById('mBody').innerHTML=html;
+  modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+}
+function closeDay(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true')}
+document.addEventListener('click',e=>{
+  const day=e.target.closest('.day.clk');
+  if(day){openDay(day.dataset.date);return}
+  if(e.target.closest('[data-close]'))closeDay();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeDay();
+  const day=e.target.closest&&e.target.closest('.day.clk');
+  if(day&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openDay(day.dataset.date)}
+});
+
+/* ============================================================ ANIMAÇÕES + VOLTAR AO TOPO ============================================================ */
+const io=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const navLinks=[...document.querySelectorAll('.navmonths a')];
+const spy=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+en.target.id))}})},{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('.month').forEach(m=>spy.observe(m));
+
+const toTop=document.getElementById('totop');
+window.addEventListener('scroll',()=>{toTop.classList.toggle('show',window.scrollY>420)},{passive:true});
+toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>
