@@ -56,10 +56,10 @@ img{display:block}
 }
 @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
 .brand{display:flex;align-items:center;gap:12px;flex-shrink:0;text-decoration:none;color:inherit}
-.brand__logo{width:42px;height:42px;border-radius:12px;overflow:hidden;box-shadow:0 6px 16px -8px rgba(0,0,0,.65);
+.brand__logo{height:62px;display:flex;align-items:center;flex-shrink:0;
   transition:transform .5s var(--ease),box-shadow .5s var(--ease);animation:pop .7s var(--ease) both}
-.brand__logo img{width:100%;height:100%;object-fit:cover}
-.brand:hover .brand__logo{transform:rotate(-5deg) scale(1.06);box-shadow:0 10px 24px -8px rgba(212,175,55,.5)}
+.brand__logo img{height:100%;width:auto;max-width:250px;object-fit:contain;border-radius:12px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5))}
+.brand:hover .brand__logo{transform:rotate(-3deg) scale(1.05)}
 @keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
 .brand__txt{display:flex;flex-direction:column;line-height:1.15}
 .brand__txt b{font-size:14px;letter-spacing:.02em;font-weight:700}
@@ -81,8 +81,8 @@ img{display:block}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 .hero__mark{display:flex;align-items:center;gap:14px;margin-bottom:26px}
-.hero__logo{width:62px;height:62px;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px -12px rgba(0,0,0,.8);animation:floaty 6s ease-in-out infinite}
-.hero__logo img{width:100%;height:100%;object-fit:cover}
+.hero__logo{height:120px;display:flex;align-items:center;animation:floaty 6s ease-in-out infinite}
+.hero__logo img{height:100%;width:auto;max-width:340px;object-fit:contain;border-radius:20px;filter:drop-shadow(0 12px 26px rgba(0,0,0,.6))}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .hero__mark span{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .hero__mark b{display:block;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--white);font-weight:600;letter-spacing:.02em}
@@ -244,7 +244,7 @@ img{display:block}
   .weekhead div{font-size:9.5px;letter-spacing:.04em}
   .grid,.weekhead{gap:5px}
   .navmonths a{padding:6px 10px;font-size:11px}
-  .hero__logo{width:54px;height:54px}
+  .hero__logo{height:92px}
   .foot{justify-content:flex-start}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal,.day{opacity:1;transform:none;filter:none}}
@@ -257,7 +257,7 @@ img{display:block}
   <a class="brand" href="#top" aria-label="Início">
     <span class="brand__logo"><img src="https://i.imgur.com/MoRvBto.png" alt="Royal Odontologia"></span>
     <div class="brand__txt">
-      <b>Social Media · Planejamento</b>
+      <b>Calendário · Planejamento</b>
       <span>Royal Odontologia</span>
     </div>
   </a>
@@ -398,7 +398,32 @@ const HOLIDAYS={
                    status:'planejado', note:'...'} ]
    ============================================================ */
 const ACTIVITIES={
-  // ainda sem atividades cadastradas
+  '2026-09-01':[
+    {category:'reuniao', title:'Reunião de alinhamento', status:'concluido', note:'Definição de objetivos, escopo e metas do planejamento estratégico da Royal Odontologia.'},
+    {category:'relatorio', title:'Diagnóstico de conta', status:'concluido', note:'Identificação de travas, hashtags inadequadas, palavras sensíveis e falhas que limitam o desempenho do Instagram.'}
+  ],
+  '2026-09-02':[
+    {category:'relatorio', title:'Diagnóstico de conta', status:'producao', note:'Análise de perfil, bio, destaques, frequência de publicação e histórico de alcance para mapear os pontos de bloqueio.'}
+  ],
+  '2026-09-03':[
+    {category:'design', title:'Limpeza corretiva', status:'confirmado', note:'Ajustes estratégicos para destravar o alcance, reduzir shadowban e reposicionar a conta com mais força no nicho.'}
+  ],
+  '2026-09-04':[
+    {category:'design', title:'Limpeza corretiva', status:'confirmado', note:'Revisão de hashtags, substituição de termos sensíveis e otimização de bio, destaques e categorização do perfil.'}
+  ],
+  '2026-09-08':[
+    {category:'design', title:'Projeção de conteúdo', status:'planejado', note:'Planejamento dos conteúdos certos, formatos virais, crescimento estratégico e potencial real de conversão.'}
+  ],
+  '2026-09-09':[
+    {category:'design', title:'Projeção de conteúdo', status:'planejado', note:'Definição das linhas editoriais, pilares de conteúdo e formatos prioritários para a Royal.'}
+  ],
+  '2026-09-10':[
+    {category:'relatorio', title:'Estruturação de SEO', status:'planejado', note:'Definição de palavras-chave e mecanismos de posicionamento para a Royal aparecer nas buscas dos clientes.'}
+  ],
+  '2026-09-11':[
+    {category:'reuniao', title:'Operação social mídia', status:'planejado', note:'Execução completa da estratégia, com foco em crescimento, prospecção nas postagens e desenvolvimento contínuo da clínica.'},
+    {category:'relatorio', title:'Fechamento do planejamento', status:'planejado', note:'Consolidação e apresentação do planejamento estratégico para a Royal.'}
+  ]
 };
 
 /* ============================================================ RENDER ============================================================ */
