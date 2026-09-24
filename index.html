@@ -22,6 +22,9 @@
   --green:#1f9d74;      /* verde da Royal (provisório até a logo) */
   --green-soft:#57d3ab;
   --green-deep:#0e6b4e;
+  --rec-ext:#e5484d;   /* gravação externa */
+  --rec-int:#f2862f;   /* gravação interna */
+  --foto:#4a9fd8;      /* captação de fotos */
   --gold:#d4af37;
   --gold-soft:#eccf7f;
   --gold-deep:#9c7a1e;
@@ -120,6 +123,9 @@ img{display:block}
 .sw--royal{background:var(--green)}
 .sw--nac{background:rgba(212,175,55,.18);border-color:var(--line)}
 .sw--fac{background:rgba(238,243,239,.06)}
+.sw--gravext{background:var(--rec-ext)}
+.sw--gravint{background:var(--rec-int)}
+.sw--foto{background:var(--foto)}
 .tip{position:relative;cursor:help;outline:none;color:var(--green-soft)!important;font-weight:600}
 .tip .sw--info{display:grid;place-items:center;background:rgba(31,157,116,.16);color:var(--green-soft);font-size:10px;font-weight:800;border-color:rgba(31,157,116,.4)}
 .tip__pop{position:absolute;left:0;bottom:calc(100% + 10px);width:250px;background:var(--ink-4);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:11.5px;line-height:1.45;color:var(--white);box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .28s var(--ease),transform .28s var(--ease);z-index:8}
@@ -179,6 +185,7 @@ img{display:block}
 .mi{width:9px;height:9px;border-radius:50%}
 .mi--dot{background:var(--green)}
 .mi--num{width:auto;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--green);color:#04150f;font-size:10px;font-weight:800;display:grid;place-items:center}
+.mi--more{width:auto;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:rgba(238,243,239,.14);color:var(--white);font-size:10px;font-weight:800;display:grid;place-items:center}
 .mi--nac,.mi--dist{background:var(--gold)}
 .mi--fac{background:var(--gray)}
 
@@ -290,7 +297,10 @@ img{display:block}
     <div class="guide">
       <div><span class="sw sw--work"></span>Dia útil</div>
       <div><span class="sw sw--off"></span>Fim de semana e feriado</div>
-      <div><span class="sw sw--royal"></span>Atividade da Royal</div>
+      <div><span class="sw sw--royal"></span>Conteúdo e design</div>
+      <div><span class="sw sw--gravext"></span>Gravação externa</div>
+      <div><span class="sw sw--gravint"></span>Gravação interna</div>
+      <div><span class="sw sw--foto"></span>Captação de fotos</div>
       <div><span class="sw sw--nac"></span>Feriado nacional / DF</div>
       <div><span class="sw sw--fac"></span>Ponto facultativo</div>
       <div class="tip" tabindex="0"><span class="sw sw--info">i</span>Detalhes do dia
@@ -412,13 +422,13 @@ const ACTIVITIES={
     {category:'design', title:'Limpeza corretiva', status:'confirmado', note:'Revisão de hashtags, substituição de termos sensíveis e otimização de bio, destaques e categorização do perfil.'}
   ],
   '2026-09-08':[
-    {category:'gravacao', title:'Gravação no local', status:'confirmado', note:'Deslocamento até a clínica para gravações de vídeos institucionais e de procedimentos da Royal.'}
+    {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação no local (clínica) para vídeos institucionais e de procedimentos da Royal.'}
   ],
   '2026-09-09':[
-    {category:'gravacao', title:'Gravação no local', status:'confirmado', note:'Gravações no local para conteúdos de rotina, equipe e bastidores da clínica.'}
+    {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação no local para conteúdos de rotina, equipe e bastidores da clínica.'}
   ],
   '2026-09-10':[
-    {category:'gravacao', title:'Gravação no local', status:'confirmado', note:'Gravações no local para depoimentos e conteúdos de autoridade da Royal.'}
+    {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação externa com Matheus Bastos, para depoimentos e conteúdos de autoridade da Royal.'}
   ],
   '2026-09-11':[
     {category:'design', title:'Projeção de conteúdo', status:'planejado', note:'Planejamento dos conteúdos certos, formatos virais, crescimento estratégico e potencial real de conversão.'}
@@ -427,7 +437,8 @@ const ACTIVITIES={
     {category:'design', title:'Identidade visual', status:'planejado', note:'Estruturação da identidade visual da Royal: conceito e direção de marca para as redes sociais.'}
   ],
   '2026-09-15':[
-    {category:'fotos', title:'Captação de fotos', status:'confirmado', note:'Captação de fotos no local para o banco de imagens da Royal.'}
+    {category:'fotos', title:'Captação de fotos', status:'confirmado', note:'Captação de fotos no local para o banco de imagens da Royal.'},
+    {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação de vídeos no mesmo dia da captação de fotos.'}
   ],
   '2026-09-16':[
     {category:'fotos', title:'Captação de fotos', status:'confirmado', note:'Captação de fotos complementares para publicações e artes.'}
@@ -436,15 +447,18 @@ const ACTIVITIES={
     {category:'design', title:'Paleta de cores', status:'planejado', note:'Definição da paleta de cores e das aplicações da marca da Royal.'}
   ],
   '2026-09-18':[
+    {category:'atendimento', title:'Solicitação ao Instagram', status:'confirmado', note:'Solicitação ao Instagram para reativar a opção de Reels (teste), pois a página estava com shadowban.'},
     {category:'design', title:'Tipografia da marca', status:'planejado', note:'Definição da tipografia e da hierarquia visual dos textos.'}
   ],
   '2026-09-21':[
     {category:'design', title:'Padrão de artes do feed', status:'planejado', note:'Criação do padrão de artes para as publicações do feed.'}
   ],
   '2026-09-22':[
+    {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação do dia de endodontia (endo) na clínica.'},
     {category:'stories', title:'Padrão de Stories', status:'planejado', note:'Criação do padrão visual para os Stories da Royal.'}
   ],
   '2026-09-23':[
+    {category:'postagem', title:'Reels (teste) reativado', status:'producao', note:'O Instagram reativou o Reels (teste) e retirou o shadowban. Início das publicações no Reels (teste) para avaliar se a página voltou a engajar.'},
     {category:'design', title:'Capas de destaques', status:'planejado', note:'Criação das capas de destaques (highlights) do perfil.'}
   ],
   '2026-09-24':[
@@ -471,6 +485,12 @@ const WD=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
 const WDS=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
 const iso=(y,m,d)=>`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 const svg=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const svgC=(p,c)=>`<svg style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+function accent(e){
+  if(e.category==='fotos') return {c:'#4a9fd8', label:'Captação de fotos'};
+  if(e.category==='gravacao') return e.local==='interna'?{c:'#f2862f', label:'Gravação interna'}:{c:'#e5484d', label:'Gravação externa'};
+  return {c:'#1f9d74', label:CLIENT.name};
+}
 
 document.getElementById('nav').innerHTML=MONTHS
   .map(o=>`<a href="#m-${o[0]}-${o[1]}">${MN[o[1]].slice(0,3)} ${String(o[0]).slice(2)}</a>`).join('');
@@ -502,14 +522,16 @@ MONTHS.forEach(o=>{
       inner+=`<div class="chips">`;
       evs.slice(0,3).forEach(e=>{
         const cat=CATEGORIES[e.category]||CATEGORIES.outros;
-        inner+=`<div class="chip">${svg(ICONS[cat.icon])}<span class="chip__txt">${e.title||cat.label}</span>${e.time?`<time>${e.time}</time>`:''}</div>`;
+        const a=accent(e);
+        inner+=`<div class="chip" style="border-left-color:${a.c};background:${a.c}1a">${svgC(ICONS[cat.icon],a.c)}<span class="chip__txt">${e.title||cat.label}</span>${e.time?`<time>${e.time}</time>`:''}</div>`;
       });
       if(evs.length>3) inner+=`<div class="more">+${evs.length-3} mais</div>`;
       inner+=`</div>`;
     }
     if(hol) inner+=`<div class="holiday holiday--${t}"><span class="hd-txt">${hol.name}</span></div>`;
     let mi='';
-    if(evs.length) mi+= evs.length>1?`<span class="mi mi--num">${evs.length}</span>`:`<span class="mi mi--dot"></span>`;
+    evs.slice(0,3).forEach(e=>{ mi+=`<span class="mi" style="background:${accent(e).c}"></span>`; });
+    if(evs.length>3) mi+=`<span class="mi--more">+${evs.length-3}</span>`;
     if(hol) mi+=`<span class="mi mi--hol mi--${t}"></span>`;
     inner+=`<div class="m-ind">${mi}</div>`;
     const tag=(evs.length||hol)?`role="button" tabindex="0"`:'';
@@ -551,10 +573,12 @@ function openDay(key){
   evs.forEach(e=>{
     const cat=CATEGORIES[e.category]||CATEGORIES.outros;
     const st=STATUS[e.status];
-    html+=`<div class="ev">
-      <div class="ev__top"><span class="ev__cli">${CLIENT.name}</span>${e.time?`<span class="ev__time">${e.time}</span>`:''}</div>
+    const a=accent(e);
+    const catName=(e.category==='gravacao'||e.category==='fotos')?a.label:cat.label;
+    html+=`<div class="ev" style="border-left-color:${a.c}">
+      <div class="ev__top"><span class="ev__cli" style="color:${a.c}">${CLIENT.name}</span>${e.time?`<span class="ev__time">${e.time}</span>`:''}</div>
       <div class="ev__title">${e.title||cat.label}</div>
-      <div class="ev__row">${svg(ICONS[cat.icon])}<span>${cat.label}</span></div>
+      <div class="ev__row">${svgC(ICONS[cat.icon],a.c)}<span>${catName}</span></div>
       ${st?`<div class="ev__row">${svg(ICONS.tag)}<span class="stbadge" style="background:${st.color}22;color:${st.color}"><span style="background:${st.color}"></span>${st.label}</span></div>`:''}
       ${e.note?`<div class="ev__row">${svg(ICONS.note)}<span><b>Obs.:</b> ${e.note}</span></div>`:''}
     </div>`;
