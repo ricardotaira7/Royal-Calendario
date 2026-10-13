@@ -25,6 +25,7 @@
   --rec-ext:#e5484d;   /* gravação externa */
   --rec-int:#f2862f;   /* gravação interna */
   --foto:#4a9fd8;      /* captação de fotos */
+  --bday:#e06fae;      /* aniversários */
   --gold:#d4af37;
   --gold-soft:#eccf7f;
   --gold-deep:#9c7a1e;
@@ -126,6 +127,10 @@ img{display:block}
 .sw--gravext{background:var(--rec-ext)}
 .sw--gravint{background:var(--rec-int)}
 .sw--foto{background:var(--foto)}
+.sw--bday{background:var(--bday)}
+.bday{font-size:10px;line-height:1.2;font-weight:600;padding:4px 7px;border-radius:7px;display:flex;align-items:center;gap:5px;background:rgba(224,111,174,.12);color:#f3b2d7;border-left:3px solid var(--bday)}
+.bday__txt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mi--bday{background:var(--bday)}
 .tip{position:relative;cursor:help;outline:none;color:var(--green-soft)!important;font-weight:600}
 .tip .sw--info{display:grid;place-items:center;background:rgba(31,157,116,.16);color:var(--green-soft);font-size:10px;font-weight:800;border-color:rgba(31,157,116,.4)}
 .tip__pop{position:absolute;left:0;bottom:calc(100% + 10px);width:250px;background:var(--ink-4);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:11.5px;line-height:1.45;color:var(--white);box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .28s var(--ease),transform .28s var(--ease);z-index:8}
@@ -246,7 +251,7 @@ img{display:block}
   .day{padding:6px 5px;gap:3px;justify-content:flex-start}
   .day__num{font-size:13px}
   .day__num small{display:none}
-  .chips,.holiday{display:none}
+  .chips,.holiday,.bday{display:none}
   .m-ind{display:flex}
   .weekhead div{font-size:9.5px;letter-spacing:.04em}
   .grid,.weekhead{gap:5px}
@@ -303,6 +308,7 @@ img{display:block}
       <div><span class="sw sw--foto"></span>Captação de fotos</div>
       <div><span class="sw sw--nac"></span>Feriado nacional / DF</div>
       <div><span class="sw sw--fac"></span>Ponto facultativo</div>
+      <div><span class="sw sw--bday"></span>Aniversário 🎉</div>
       <div class="tip" tabindex="0"><span class="sw sw--info">i</span>Detalhes do dia
         <span class="tip__pop">Cada dia com atividade abre um cartão com cliente, categoria, horário, status e observação. No computador é só clicar; no celular, toque no dia marcado.</span>
       </div>
@@ -402,6 +408,27 @@ const HOLIDAYS={
   '2027-02-10':{name:'Quarta-feira de Cinzas',   type:'facultativo'}
 };
 
+/* Aniversários (dentistas e equipe Royal), por mês-dia 'MM-DD'. Recorrem todo ano. */
+const BIRTHDAYS={
+  '02-01':'Beatriz (dentista)',
+  '02-07':'Cristiana (Diretora clínica)',
+  '02-09':'Verônica (Supervisora CRC)',
+  '05-01':'Andreza (CRC de Vendas)',
+  '06-20':'Alisson (CRC comercial)',
+  '06-27':'Aniversário (dentista)',
+  '06-29':'Aniversário (dentista proprietária)',
+  '07-06':'Raphael (dentista proprietário)',
+  '07-17':'Thaís (estagiária)',
+  '08-05':'Juliana (CRC comercial)',
+  '09-03':'Matheus Bastos (dentista proprietário)',
+  '09-20':'Walquiria (Val, auxiliar de consultório)',
+  '09-22':'Mirelly (estagiária)',
+  '10-02':'Maria Lúcia (dentista)',
+  '10-03':'Suzan Ketley (recepcionista)',
+  '11-13':'Carlos (dentista)',
+  '12-10':'Laís (dentista)'
+};
+
 /* ============================================================
    ATIVIDADES  (preenchidas via conversa; formato abaixo)
    'AAAA-MM-DD':[ {category:'fotos', title:'...', time:'09:00',
@@ -475,6 +502,14 @@ const ACTIVITIES={
   ],
   '2026-09-30':[
     {category:'design', title:'Kit de identidade', status:'planejado', note:'Consolidação do kit de identidade visual e do padrão para Stories e publicações.'}
+  ],
+  '2026-10-08':[
+    {category:'gravacao', title:'Gravação (tráfego pago)', status:'concluido', note:'Gravação para tráfego pago com a Dra. Vanessa Porfírio.'},
+    {category:'gravacao', title:'Gravação externa', status:'concluido', note:'Gravações complementares da clínica.'},
+    {category:'fotos', title:'Captação de fotos', status:'concluido', note:'Captação de fotos da clínica.'}
+  ],
+  '2026-10-16':[
+    {category:'gravacao', title:'Gravação de ortodontia', status:'confirmado', note:'Gravação de ortodontia com a Dra. Beatriz Lopes (Bia), CRO-DF 12758, @drabialopes.'}
   ]
 };
 
@@ -510,14 +545,17 @@ MONTHS.forEach(o=>{
     const weekend=dow===0||dow===6;
     const hol=HOLIDAYS[key];
     const evs=ACTIVITIES[key]||[];
+    const bday=BIRTHDAYS[String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')];
     const t=hol?(hol.type==='nacional'?'nac':hol.type==='distrital'?'dist':'fac'):'';
     const cls=['day'];
     if(weekend) cls.push('day--weekend');
     if(hol) cls.push('day--holiday');
     if(evs.length) cls.push('has');
-    if(evs.length||hol) cls.push('clk');
+    if(bday) cls.push('day--bday');
+    if(evs.length||hol||bday) cls.push('clk');
     const idx=offset+d-1;
     let inner=`<div class="day__num">${d}${weekend?`<small>${dow===6?'Sáb':'Dom'}</small>`:''}</div>`;
+    if(bday) inner+=`<div class="bday">🎉 <span class="bday__txt">${bday}</span></div>`;
     if(evs.length){
       inner+=`<div class="chips">`;
       evs.slice(0,3).forEach(e=>{
@@ -532,9 +570,10 @@ MONTHS.forEach(o=>{
     let mi='';
     evs.slice(0,3).forEach(e=>{ mi+=`<span class="mi" style="background:${accent(e).c}"></span>`; });
     if(evs.length>3) mi+=`<span class="mi--more">+${evs.length-3}</span>`;
+    if(bday) mi+=`<span class="mi mi--bday"></span>`;
     if(hol) mi+=`<span class="mi mi--hol mi--${t}"></span>`;
     inner+=`<div class="m-ind">${mi}</div>`;
-    const tag=(evs.length||hol)?`role="button" tabindex="0"`:'';
+    const tag=(evs.length||hol||bday)?`role="button" tabindex="0"`:'';
     cells+=`<div class="${cls.join(' ')}" data-date="${key}" style="--i:${idx*20}" ${tag}>${inner}</div>`;
   }
   for(let i=0;i<trail;i++) cells+=`<div class="day--pad" aria-hidden="true"></div>`;
@@ -565,7 +604,11 @@ function openDay(key){
   document.getElementById('mWd').textContent=WD[dow];
   const evs=ACTIVITIES[key]||[];
   const hol=HOLIDAYS[key];
+  const bday=BIRTHDAYS[`${String(M).padStart(2,'0')}-${String(D).padStart(2,'0')}`];
   let html='';
+  if(bday){
+    html+=`<div class="ev" style="border-left-color:var(--bday)"><div class="ev__title" style="margin:0">🎉 Aniversário</div><div class="ev__row"><span><b>${bday}</b></span></div></div>`;
+  }
   if(hol){
     const lab=hol.type==='nacional'?'Feriado nacional':hol.type==='distrital'?'Feriado distrital (DF)':'Ponto facultativo';
     html+=`<div class="ev"><div class="ev__title" style="margin:0">${hol.name}</div><div class="ev__row">${svg(ICONS.tag)}<span>${lab}</span></div></div>`;
@@ -583,7 +626,7 @@ function openDay(key){
       ${e.note?`<div class="ev__row">${svg(ICONS.note)}<span><b>Obs.:</b> ${e.note}</span></div>`:''}
     </div>`;
   });
-  if(!hol && !evs.length) html=`<div class="modal__empty">Nenhuma atividade cadastrada neste dia.</div>`;
+  if(!hol && !evs.length && !bday) html=`<div class="modal__empty">Nenhuma atividade cadastrada neste dia.</div>`;
   document.getElementById('mBody').innerHTML=html;
   modal.classList.add('open');modal.setAttribute('aria-hidden','false');
 }
