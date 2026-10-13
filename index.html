@@ -410,23 +410,23 @@ const HOLIDAYS={
 
 /* Aniversários (dentistas e equipe Royal), por mês-dia 'MM-DD'. Recorrem todo ano. */
 const BIRTHDAYS={
-  '02-01':'Beatriz (dentista)',
-  '02-07':'Cristiana (Diretora clínica)',
-  '02-09':'Verônica (Supervisora CRC)',
-  '05-01':'Andreza (CRC de Vendas)',
-  '06-20':'Alisson (CRC comercial)',
-  '06-27':'Aniversário (dentista)',
-  '06-29':'Aniversário (dentista proprietária)',
-  '07-06':'Raphael (dentista proprietário)',
-  '07-17':'Thaís (estagiária)',
-  '08-05':'Juliana (CRC comercial)',
-  '09-03':'Matheus Bastos (dentista proprietário)',
-  '09-20':'Walquiria (Val, auxiliar de consultório)',
-  '09-22':'Mirelly (estagiária)',
-  '10-02':'Maria Lúcia (dentista)',
-  '10-03':'Suzan Ketley (recepcionista)',
-  '11-13':'Carlos (dentista)',
-  '12-10':'Laís (dentista)'
+  '02-01':{name:'Beatriz Lopes (Bia)', role:'Dentista, ortodontia'},
+  '02-07':{name:'Cristiana (Cris)', role:'Diretora clínica'},
+  '02-09':{name:'Verônica Cristina', role:'Supervisora do CRC'},
+  '05-01':{name:'Andreza', role:'CRC de vendas'},
+  '06-20':{name:'Alisson', role:'CRC comercial'},
+  '06-27':{name:'A confirmar', role:'Dentista'},
+  '06-29':{name:'A confirmar', role:'Dentista e proprietária'},
+  '07-06':{name:'Raphael', role:'Dentista e proprietário'},
+  '07-17':{name:'Thaís', role:'Estagiária'},
+  '08-05':{name:'Juliana', role:'CRC comercial'},
+  '09-03':{name:'Matheus Bastos', role:'Dentista, prótese, e proprietário'},
+  '09-20':{name:'Walquiria (Val)', role:'Auxiliar de consultório'},
+  '09-22':{name:'Mirelly', role:'Estagiária'},
+  '10-02':{name:'Maria Lúcia Freitas', role:'Dentista, clínica geral e implantodontia'},
+  '10-03':{name:'Suzan Ketley', role:'Recepcionista'},
+  '11-13':{name:'Carlos Leite', role:'Dentista, endodontia'},
+  '12-10':{name:'Laís Lacerda', role:'Dentista, prótese e clínica geral'}
 };
 
 /* ============================================================
@@ -555,7 +555,7 @@ MONTHS.forEach(o=>{
     if(evs.length||hol||bday) cls.push('clk');
     const idx=offset+d-1;
     let inner=`<div class="day__num">${d}${weekend?`<small>${dow===6?'Sáb':'Dom'}</small>`:''}</div>`;
-    if(bday) inner+=`<div class="bday">🎉 <span class="bday__txt">${bday}</span></div>`;
+    if(bday) inner+=`<div class="bday">🎉 <span class="bday__txt">${bday.name}</span></div>`;
     if(evs.length){
       inner+=`<div class="chips">`;
       evs.slice(0,3).forEach(e=>{
@@ -607,7 +607,7 @@ function openDay(key){
   const bday=BIRTHDAYS[`${String(M).padStart(2,'0')}-${String(D).padStart(2,'0')}`];
   let html='';
   if(bday){
-    html+=`<div class="ev" style="border-left-color:var(--bday)"><div class="ev__title" style="margin:0">🎉 Aniversário</div><div class="ev__row"><span><b>${bday}</b></span></div></div>`;
+    html+=`<div class="ev" style="border-left-color:var(--bday)"><div class="ev__title" style="margin:0">🎉 Aniversário</div><div class="ev__row"><span><b>${bday.name}</b></span></div>${bday.role?`<div class="ev__row">${svg(ICONS.tag)}<span>${bday.role}</span></div>`:''}</div>`;
   }
   if(hol){
     const lab=hol.type==='nacional'?'Feriado nacional':hol.type==='distrital'?'Feriado distrital (DF)':'Ponto facultativo';
