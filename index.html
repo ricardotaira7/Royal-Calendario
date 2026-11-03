@@ -79,7 +79,7 @@ button{font:inherit;color:inherit}
 .today-btn svg{width:15px;height:15px}
 .today-btn:hover{transform:translateY(-2px);background:rgba(212,175,55,.16);box-shadow:0 10px 22px -12px rgba(212,175,55,.6)}
 .today-btn:active{transform:scale(.95)}
-.today-btn:focus-visible,.flt:focus-visible,.up__btn:focus-visible,.mnav:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
+.today-btn:focus-visible,.flt:focus-visible,.mnav:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
 
 /* ============================================================ HERO ============================================================ */
 .hero{position:relative;z-index:1;padding:clamp(46px,8vw,96px) clamp(16px,4vw,44px) clamp(30px,5vw,60px);max-width:1280px;margin:0 auto;overflow:hidden}
@@ -127,7 +127,7 @@ button{font:inherit;color:inherit}
 @keyframes sheen{to{transform:translateX(100%)}}
 
 /* PAINÉIS (legenda + próximos) */
-.row2{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;margin-top:16px;align-items:start}
+.row2{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
 .panel{background:linear-gradient(160deg,var(--ink-3),var(--ink-2));border:1px solid var(--line-2);border-radius:var(--radius);padding:20px 22px;transition:border-color .4s var(--ease)}
 .panel:hover{border-color:var(--line)}
 .panel__t{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
@@ -163,21 +163,6 @@ button{font:inherit;color:inherit}
 .tip__pop::after{content:"";position:absolute;top:100%;left:22px;border:6px solid transparent;border-top-color:var(--ink-4)}
 .tip:hover .tip__pop,.tip:focus-visible .tip__pop{opacity:1;transform:none}
 
-/* Próximos eventos */
-.up{list-style:none;display:flex;flex-direction:column;gap:7px}
-.up__btn{width:100%;display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:12px;border:1px solid transparent;background:rgba(255,255,255,.02);text-align:left;cursor:pointer;transition:transform .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease)}
-@media(hover:hover){.up__btn:hover{transform:translateX(4px);border-color:var(--line);background:var(--ink-4)}}
-.up__btn:active{background:var(--ink-4)}
-.up__date{width:46px;flex-shrink:0;text-align:center;border-radius:10px;padding:4px 0 5px;background:rgba(212,175,55,.07);border:1px solid var(--line);line-height:1.05}
-.up__date b{display:block;font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--gold-soft)}
-.up__date small{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
-.up__body{min-width:0;flex:1}
-.up__body b{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.up__body b i{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.up__body span{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.up__in{flex-shrink:0;font-size:10.5px;font-weight:800;letter-spacing:.04em;color:var(--green-soft);padding:3px 8px;border-radius:99px;background:rgba(31,157,116,.10)}
-.up__in.now{color:#04150f;background:var(--gold-soft)}
-.up__empty{font-size:13px;color:var(--muted)}
 
 /* ============================================================ MESES ============================================================ */
 .stage{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:36px clamp(16px,4vw,44px) 40px}
@@ -321,7 +306,6 @@ button{font:inherit;color:inherit}
 [data-stagger]{transition-delay:var(--d,0ms)}
 
 /* ============================================================ RESPONSIVO ============================================================ */
-@media(max-width:1020px){.row2{grid-template-columns:1fr}}
 @media(max-width:920px){.stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){
   .topbar{gap:10px;-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(8,18,14,.96)}
@@ -429,13 +413,6 @@ button{font:inherit;color:inherit}
       </div>
     </div>
 
-    <div class="panel reveal" data-stagger style="--d:280ms">
-      <div class="panel__t">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        Próximos eventos
-      </div>
-      <ul class="up" id="upcoming"></ul>
-    </div>
   </div>
 </section>
 
@@ -855,27 +832,6 @@ MONTHS.forEach(([y,m])=>{
     };
     requestAnimationFrame(step);
   });
-})();
-
-/* ============================================================ PRÓXIMOS EVENTOS ============================================================ */
-(function(){
-  const items=[];
-  CONTENT_KEYS.filter(k=>k>=TODAY).forEach(k=>{
-    const {evs,hol,bday}=info(k);
-    if(bday) items.push({k,title:`🎉 ${bday.name}`,sub:`Aniversário · ${bday.role}`,c:TYPES.bday.c});
-    evs.forEach(e=>{const a=accent(e);items.push({k,title:e.title,sub:(e.category==='gravacao'||e.category==='fotos')?a.label:(CATEGORIES[e.category]||CATEGORIES.outros).label,c:a.c})});
-    if(hol) items.push({k,title:hol.name,sub:hol.type==='nacional'?'Feriado nacional':hol.type==='distrital'?'Feriado distrital (DF)':'Ponto facultativo',c:hol.type==='facultativo'?'#5f6f67':TYPES.hol.c});
-  });
-  const list=document.getElementById('upcoming');
-  if(!items.length){list.innerHTML=`<li class="up__empty">Nenhum evento futuro lançado no período.</li>`;return}
-  list.innerHTML=items.slice(0,6).map(it=>{
-    const d=parse(it.k);const rl=relLabel(it.k);
-    return `<li><button class="up__btn" type="button" data-open="${it.k}">
-      <span class="up__date"><b>${pad(d.getDate())}</b><small>${MNS[d.getMonth()]}</small></span>
-      <span class="up__body"><b><i style="background:${it.c}"></i>${it.title}</b><span>${WD[(d.getDay()+6)%7]} · ${it.sub}</span></span>
-      ${rl?`<span class="up__in${rl==='Hoje'||rl==='Amanhã'?' now':''}">${rl}</span>`:''}
-    </button></li>`;
-  }).join('');
 })();
 
 /* ============================================================ FILTROS ============================================================ */
