@@ -79,7 +79,7 @@ button{font:inherit;color:inherit}
 .today-btn svg{width:15px;height:15px}
 .today-btn:hover{transform:translateY(-2px);background:rgba(212,175,55,.16);box-shadow:0 10px 22px -12px rgba(212,175,55,.6)}
 .today-btn:active{transform:scale(.95)}
-.today-btn:focus-visible,.flt:focus-visible,.mnav:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
+.today-btn:focus-visible,.mnav:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
 
 /* ============================================================ HERO ============================================================ */
 .hero{position:relative;z-index:1;padding:clamp(46px,8vw,96px) clamp(16px,4vw,44px) clamp(30px,5vw,60px);max-width:1280px;margin:0 auto;overflow:hidden}
@@ -126,44 +126,6 @@ button{font:inherit;color:inherit}
 .bar__fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-100%);animation:sheen 3.2s ease-in-out 1.8s infinite;will-change:transform}
 @keyframes sheen{to{transform:translateX(100%)}}
 
-/* PAINÉIS (legenda + próximos) */
-.row2{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
-.panel{background:linear-gradient(160deg,var(--ink-3),var(--ink-2));border:1px solid var(--line-2);border-radius:var(--radius);padding:20px 22px;transition:border-color .4s var(--ease)}
-.panel:hover{border-color:var(--line)}
-.panel__t{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.panel__t svg{width:14px;height:14px}
-.panel__t .clear{margin-left:auto;font-size:10.5px;letter-spacing:.1em;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(212,175,55,.08);color:var(--gold-soft);cursor:pointer;transition:background .3s var(--ease),transform .3s var(--ease)}
-.panel__t .clear:hover{background:rgba(212,175,55,.18);transform:translateY(-1px)}
-.panel__t .clear[hidden]{display:none}
-.sub-t{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);font-weight:700;margin:2px 0 10px}
-.sub-t+.filters{margin-bottom:16px}
-
-.filters{display:flex;flex-wrap:wrap;gap:8px}
-.flt{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--muted);background:rgba(255,255,255,.02);border:1px solid var(--line-2);border-radius:999px;padding:6px 10px 6px 8px;cursor:pointer;transition:transform .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease)}
-@media(hover:hover){.flt:hover:not(:disabled){color:var(--white);border-color:var(--line);transform:translateY(-2px)}}
-.flt:disabled{opacity:.4;cursor:default}
-.flt:active{transform:scale(.96)}
-.flt em{font-style:normal;font-size:10.5px;font-weight:800;min-width:20px;padding:1px 6px;border-radius:99px;background:rgba(238,243,239,.08);color:var(--white);text-align:center}
-.flt[aria-pressed="true"]{color:var(--white);background:rgba(31,157,116,.14);border-color:rgba(87,211,171,.55);box-shadow:0 8px 20px -12px rgba(31,157,116,.7)}
-.flt-status{font-size:11.5px;color:var(--green-soft);margin-top:-6px;margin-bottom:14px;min-height:16px}
-
-.sw{width:20px;height:14px;border-radius:5px;flex-shrink:0;border:1px solid var(--line-2);display:inline-block}
-.sw--work{background:var(--ink-3)}
-.sw--off{background:var(--ink-2)}
-.sw--fac{background:rgba(238,243,239,.06)}
-.sw--today{background:transparent;border:1.5px solid var(--gold)}
-.sw--done{display:grid;place-items:center;background:rgba(87,211,171,.14);border-color:rgba(87,211,171,.4);color:var(--green-soft)}
-.sw--done svg{width:10px;height:10px}
-
-.refs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px 20px}
-.refs>div{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted)}
-.tip{position:relative;cursor:help;outline:none;color:var(--green-soft)!important;font-weight:600}
-.tip .sw--info{display:grid;place-items:center;background:rgba(31,157,116,.16);color:var(--green-soft);font-size:10px;font-weight:800;border-color:rgba(31,157,116,.4)}
-.tip__pop{position:absolute;left:0;bottom:calc(100% + 10px);width:260px;background:var(--ink-4);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:11.5px;line-height:1.45;color:var(--white);font-weight:500;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .28s var(--ease),transform .28s var(--ease);z-index:8}
-.tip__pop::after{content:"";position:absolute;top:100%;left:22px;border:6px solid transparent;border-top-color:var(--ink-4)}
-.tip:hover .tip__pop,.tip:focus-visible .tip__pop{opacity:1;transform:none}
-
-
 /* ============================================================ MESES ============================================================ */
 .stage{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:36px clamp(16px,4vw,44px) 40px}
 .stage::before{content:"";position:absolute;left:clamp(16px,4vw,44px);top:60px;bottom:120px;width:1px;background:linear-gradient(180deg,transparent,var(--line) 6%,var(--line) 94%,transparent)}
@@ -175,11 +137,6 @@ button{font:inherit;color:inherit}
 .month__head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:20px}
 .month__name{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.6vw,46px);font-weight:600;letter-spacing:.01em}
 .month__year{font-size:13px;letter-spacing:.28em;color:var(--gold);font-weight:700}
-.month__sum{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px;align-self:center}
-.mp{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);padding:4px 10px;border-radius:999px;border:1px solid var(--line-2);background:rgba(255,255,255,.02);transition:transform .3s var(--ease),border-color .3s var(--ease)}
-@media(hover:hover){.mp:hover{transform:translateY(-2px);border-color:var(--line)}}
-.mp i{width:7px;height:7px;border-radius:50%}
-.mp b{color:var(--white);font-weight:800}
 
 .weekhead{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px}
 .weekhead div{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center;padding:4px 0}
@@ -217,8 +174,6 @@ button{font:inherit;color:inherit}
 @keyframes flash{0%,100%{box-shadow:inset 0 0 0 1px rgba(212,175,55,.5),0 0 0 0 rgba(212,175,55,.6)}50%{box-shadow:inset 0 0 0 1px rgba(212,175,55,.9),0 0 0 10px rgba(212,175,55,0)}}
 
 /* Filtro ativo */
-#stage.filtering .day:not(.match){opacity:.22!important}
-#stage.filtering .day.match{border-color:rgba(212,175,55,.6);box-shadow:0 0 0 1px rgba(212,175,55,.35),0 14px 30px -18px rgba(212,175,55,.6)}
 
 .holiday{margin-top:auto;font-size:10px;line-height:1.25;letter-spacing:.02em;font-weight:600;padding:4px 7px;border-radius:7px;display:flex;align-items:flex-start;gap:5px}
 .holiday::before{content:"";width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px}
@@ -323,8 +278,6 @@ button{font:inherit;color:inherit}
   .grid,.weekhead{gap:5px}
   .navmonths a{padding:6px 10px;font-size:11px}
   .hero__logo{height:92px}
-  .month__sum{margin-left:0;width:100%}
-  .panel{padding:18px 16px}
   .stat{padding:16px 14px}
   .foot{justify-content:flex-start}
   .modal{padding:12px}
@@ -390,30 +343,6 @@ button{font:inherit;color:inherit}
     </div>
   </div>
 
-  <div class="row2">
-    <div class="panel reveal" data-stagger style="--d:200ms">
-      <div class="panel__t">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg>
-        Como ler e filtrar o calendário
-        <button class="clear" id="clearFlt" type="button" hidden>Limpar filtro</button>
-      </div>
-      <p class="sub-t">Clique em um tipo para destacar os dias</p>
-      <div class="filters" id="filters"></div>
-      <p class="flt-status" id="fltStatus" aria-live="polite"></p>
-      <p class="sub-t">Referências</p>
-      <div class="refs">
-        <div><span class="sw sw--work"></span>Dia útil</div>
-        <div><span class="sw sw--off"></span>Fim de semana e feriado</div>
-        <div><span class="sw sw--fac"></span>Ponto facultativo</div>
-        <div><span class="sw sw--today"></span>Dia de hoje</div>
-        <div><span class="sw sw--done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Dia com entregas realizadas</div>
-        <div class="tip" tabindex="0"><span class="sw sw--info">i</span>Detalhes do dia
-          <span class="tip__pop">Clique em qualquer dia marcado para abrir o cartão com categoria, status e observação. Dentro do cartão, use as setas (ou as teclas ← e →) para passar para o dia anterior ou o próximo.</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
 </section>
 
 <!-- MESES -->
@@ -474,13 +403,24 @@ const STATUS={
 };
 
 /* Tipos visuais (cor + filtro) */
+/* Cada tipo de atividade tem a sua cor (dia, cartão, filtro e resumo do mês) */
 const TYPES={
-  conteudo:{ label:'Conteúdo e design',  c:'#1f9d74' },
-  gravext:{  label:'Gravação externa',   c:'#e5484d' },
-  gravint:{  label:'Gravação interna',   c:'#f2862f' },
-  foto:{     label:'Captação de fotos',  c:'#4a9fd8' },
-  bday:{     label:'Aniversário 🎉',      c:'#e06fae' },
-  hol:{      label:'Feriados',           c:'#d4af37' }
+  gravext:{     label:'Gravação externa',        c:'#e5484d', sg:'gravação externa',  pl:'gravações externas' },
+  gravint:{     label:'Gravação interna',        c:'#f2862f', sg:'gravação interna',  pl:'gravações internas' },
+  foto:{        label:'Captação de fotos',       c:'#4a9fd8', sg:'captação de fotos', pl:'captações de fotos' },
+  postagem:{    label:'Reels e publicações',     c:'#1f9d74', sg:'publicação',        pl:'publicações' },
+  design:{      label:'Artes e design',          c:'#9b6cf0', sg:'arte e design',     pl:'artes e design' },
+  lp:{          label:'Landing pages',           c:'#22c3c9', sg:'landing page',      pl:'landing pages' },
+  site:{        label:'Site',                    c:'#5b73f2', sg:'site',              pl:'site' },
+  link:{        label:'Link de WhatsApp',        c:'#9ccc3a', sg:'link de WhatsApp',  pl:'links de WhatsApp' },
+  relatorio:{   label:'Dashboards e relatórios', c:'#c45ce0', sg:'relatório',         pl:'relatórios' },
+  reuniao:{     label:'Reuniões',                c:'#c9d4da', sg:'reunião',           pl:'reuniões' },
+  stories:{     label:'Stories',                 c:'#ffd166', sg:'Stories',           pl:'Stories' },
+  atendimento:{ label:'Atendimento',             c:'#ff9e7a', sg:'atendimento',       pl:'atendimentos' },
+  deslocamento:{label:'Deslocamentos',           c:'#b08968', sg:'deslocamento',      pl:'deslocamentos' },
+  outros:{      label:'Outros',                  c:'#8a9a93', sg:'outro',             pl:'outros' },
+  bday:{        label:'Aniversário 🎉',           c:'#e06fae', sg:'aniversário',       pl:'aniversários' },
+  hol:{         label:'Feriados',                c:'#d4af37', sg:'feriado',           pl:'feriados' }
 };
 
 const ICONS={
@@ -500,6 +440,7 @@ const ICONS={
   user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/>',
   check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  layout:'<rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18M9 9v12"/>',
   link:'<path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>'
 };
 
@@ -516,6 +457,7 @@ const CATEGORIES={
   deslocamento:{ label:'Deslocamento',icon:'route' },
   site:{ label:'Site',                icon:'globe' },
   link:{ label:'Link de WhatsApp',    icon:'link' },
+  lp:{ label:'Landing page',          icon:'layout' },
   outros:{ label:'Outros',            icon:'dot' }
 };
 
@@ -582,16 +524,11 @@ const ACTIVITIES={
     {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação no local (clínica) para vídeos institucionais e de procedimentos da Royal.'}
   ],
   '2026-09-09':[
-    {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação no local para conteúdos de rotina, equipe e bastidores da clínica.'}
+    {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação no local para conteúdos de rotina, equipe e bastidores da clínica.'},
+    {category:'link', title:'Link de WhatsApp do Instagram', status:'concluido', note:'Criação do link de direcionamento para o WhatsApp, de uso no Instagram.'}
   ],
   '2026-09-10':[
     {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação externa com Matheus Bastos, para depoimentos e conteúdos de autoridade da Royal.'}
-  ],
-  '2026-09-11':[
-    {category:'design', title:'Projeção de conteúdo', status:'planejado', note:'Planejamento dos conteúdos certos, formatos virais, crescimento estratégico e potencial real de conversão.'}
-  ],
-  '2026-09-14':[
-    {category:'design', title:'Identidade visual', status:'planejado', note:'Estruturação da identidade visual da Royal: conceito e direção de marca para as redes sociais.'}
   ],
   '2026-09-15':[
     {category:'fotos', title:'Captação de fotos', status:'confirmado', note:'Captação de fotos no local para o banco de imagens da Royal.'},
@@ -599,16 +536,6 @@ const ACTIVITIES={
   ],
   '2026-09-16':[
     {category:'fotos', title:'Captação de fotos', status:'confirmado', note:'Captação de fotos complementares para publicações e artes.'}
-  ],
-  '2026-09-17':[
-    {category:'design', title:'Paleta de cores', status:'planejado', note:'Definição da paleta de cores e das aplicações da marca da Royal.'}
-  ],
-  '2026-09-18':[
-    {category:'atendimento', title:'Solicitação ao Instagram', status:'confirmado', note:'Solicitação ao Instagram para reativar a opção de Reels (teste), pois a página estava com shadowban.'},
-    {category:'design', title:'Tipografia da marca', status:'planejado', note:'Definição da tipografia e da hierarquia visual dos textos.'}
-  ],
-  '2026-09-21':[
-    {category:'design', title:'Padrão de artes do feed', status:'planejado', note:'Criação do padrão de artes para as publicações do feed.'}
   ],
   '2026-09-22':[
     {category:'gravacao', title:'Gravação externa', status:'confirmado', note:'Gravação do dia de endodontia (endo) na clínica.'},
@@ -624,41 +551,92 @@ const ACTIVITIES={
   '2026-09-25':[
     {category:'relatorio', title:'Linha editorial', status:'planejado', note:'Definição da linha editorial, pilares de conteúdo e formatos prioritários.'}
   ],
-  '2026-09-28':[
-    {category:'postagem', title:'Padrão de legendas', status:'planejado', note:'Padronização de legendas, chamadas e call to action das publicações.'}
-  ],
-  '2026-09-29':[
-    {category:'design', title:'Banco de artes', status:'planejado', note:'Montagem do banco de artes e dos elementos gráficos reutilizáveis da marca.'}
-  ],
   '2026-09-30':[
-    {category:'design', title:'Kit de identidade', status:'planejado', note:'Consolidação do kit de identidade visual e do padrão para Stories e publicações.'}
+    {category:'relatorio', title:'Dashboard de social media', status:'concluido', note:'Criação do dashboard de resultados de social media da Royal.'},
+    {category:'relatorio', title:'Dashboard de faturamento', status:'concluido', note:'Criação do dashboard de faturamento da Royal.'}
+  ],
+  '2026-10-05':[
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
+  ],
+  '2026-10-07':[
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
   ],
   '2026-10-08':[
     {category:'gravacao', title:'Gravação (tráfego pago)', status:'concluido', note:'Gravação para tráfego pago com a Dra. Vanessa Porfírio.'},
     {category:'gravacao', title:'Gravação externa', status:'concluido', note:'Gravações complementares da clínica.'},
     {category:'fotos', title:'Captação de fotos', status:'concluido', note:'Captação de fotos da clínica.'}
   ],
+  '2026-10-12':[
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
+  ],
+  '2026-10-14':[
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
+  ],
   '2026-10-16':[
     {category:'gravacao', title:'Gravação de ortodontia', status:'confirmado', note:'Gravação de ortodontia com a Dra. Beatriz Lopes (Bia), CRO-DF 12758, @drabialopes.'}
+  ],
+  '2026-10-19':[
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
+  ],
+  '2026-10-21':[
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
   ],
   '2026-10-23':[
     {category:'gravacao', title:'Depoimentos de pacientes', status:'concluido', note:'Gravação de depoimentos dos pacientes Ranieri e Wenderson.'},
     {category:'gravacao', title:'Gravação com novo ortodontista', status:'concluido', note:'Gravação de apresentação do novo dentista de ortodontia, Dr. Raonei Monteiro, CRO 12947.'}
   ],
+  '2026-10-26':[
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
+  ],
+  '2026-10-28':[
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
+  ],
   '2026-11-03':[
-    {category:'site', title:'Novo site da Royal', status:'concluido', note:'Criação e publicação do novo site da Royal Odontologia.'},
-    {category:'link', title:'Link exclusivo de WhatsApp', status:'concluido', note:'Contratação de um novo link de direcionamento para o WhatsApp, de uso exclusivo do site, para separar e medir os contatos vindos por ele.'}
+    {category:'site', title:'Novo site da Royal', status:'concluido', note:'Criação e publicação do novo site da Royal Odontologia.'}
   ],
   '2026-11-04':[
-    {category:'design', title:'Artes para tráfego pago', status:'producao', note:'Criação das artes para as campanhas de tráfego pago: definição de conceito, chamadas e formatos.'}
+    {category:'design', title:'Artes para tráfego pago', status:'producao', note:'Continuação das artes para as campanhas de tráfego pago: conceito, chamadas e formatos para feed e Stories.'},
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
   ],
   '2026-11-05':[
-    {category:'design', title:'Artes para tráfego pago', status:'producao', note:'Continuação das artes para tráfego pago: variações de anúncios para feed e Stories.'}
+    {category:'lp', title:'LP de urgência', status:'concluido', note:'Criação da landing page de atendimento de urgência odontológica.'},
+    {category:'lp', title:'LP de estética dental', status:'concluido', note:'Criação da landing page de estética dental.'},
+    {category:'postagem', title:'Reels (teste)', status:'concluido', note:'Criação e publicação de Reels no modo teste para avaliar o alcance e o engajamento da página.'}
   ],
   '2026-11-06':[
-    {category:'design', title:'Artes para tráfego pago', status:'producao', note:'Finalização e revisão das artes para tráfego pago, prontas para subir nas campanhas.'}
-  ]
+    {category:'deslocamento', title:'Protético da Ceilândia', status:'concluido', note:'Entrega de próteses para confecção e retirada de próteses prontas no protético da Ceilândia.'},
+    {category:'link', title:'Link de WhatsApp do site', status:'confirmado', note:'Compra de um novo link de direcionamento para o WhatsApp, de uso exclusivo do site, para separar e medir os contatos vindos por ele.'}
+  ],
+  '2026-11-09':[
+    {category:'lp', title:'LP de próteses dentárias', status:'planejado', note:'Criação da landing page de próteses dentárias.'},
+    {category:'lp', title:'LP de tratamento de canal', status:'planejado', note:'Criação da landing page de tratamento de canal (endodontia).'}
+  ],
+  '2026-11-10':[
+    {category:'lp', title:'LP de implantes dentários', status:'planejado', note:'Criação da landing page de implantes dentários.'},
+    {category:'lp', title:'LP de ortodontia', status:'planejado', note:'Criação da landing page de ortodontia.'}
+  ],
 };
+
+/* ============================================================
+   ROTINAS DOS DASHBOARDS (a partir de outubro/2026)
+   Toda sexta: atualização do dashboard de faturamento
+   (exceto em sexta de feriado). Último dia de cada mês:
+   fechamento dos dashboards de social media e de faturamento.
+   ============================================================ */
+(function(){
+  const p=n=>String(n).padStart(2,'0');
+  const MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  const add=(k,item)=>{(ACTIVITIES[k]=ACTIVITIES[k]||[]).push(item)};
+  for(let d=new Date(2026,9,1);d<=new Date(2027,1,28);d.setDate(d.getDate()+1)){
+    const k=`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+    const hol=HOLIDAYS[k];
+    if(d.getDay()===5&&!(hol&&hol.type!=='facultativo'))
+      add(k,{category:'relatorio',title:'Atualização do dash de faturamento',status:'planejado',note:'Atualização semanal do dashboard de faturamento da Royal.'});
+    const next=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
+    if(next.getDate()===1)
+      add(k,{category:'relatorio',title:'Fechamento mensal dos dashboards',status:'planejado',note:`Fechamento de ${MES[d.getMonth()]} nos dashboards de social media e de faturamento.`});
+  }
+})();
 
 /* ============================================================ BASE ============================================================ */
 const MONTHS=[[2026,8],[2026,9],[2026,10],[2026,11],[2027,0],[2027,1]];
@@ -682,8 +660,8 @@ const TOTAL_DAYS=Math.round((END-START)/DAYMS)+1;
 
 function typeOf(e){
   if(e.category==='fotos') return 'foto';
-  if(e.category==='gravacao') return e.local==='interna'?'gravint':'gravext';
-  return 'conteudo';
+  if(e.category==='gravacao'||e.category==='videos') return e.local==='interna'?'gravint':'gravext';
+  return TYPES[e.category]?e.category:'outros';
 }
 function accent(e){const t=TYPES[typeOf(e)];return {c:t.c,label:t.label}}
 function effStatus(key,e){
@@ -725,7 +703,6 @@ MONTHS.forEach(([y,m])=>{
   const offset=(new Date(y,m,1).getDay()+6)%7;
   const total=new Date(y,m+1,0).getDate();
   const trail=(7-((offset+total)%7))%7;
-  const sum={conteudo:0,grav:0,foto:0,bday:0};
   let cells='';
   for(let i=0;i<offset;i++) cells+=`<div class="day--pad" aria-hidden="true"></div>`;
   for(let d=1;d<=total;d++){
@@ -735,8 +712,6 @@ MONTHS.forEach(([y,m])=>{
     const {evs,hol,bday,types}=info(key);
     const isToday=key===TODAY;
     const t=hol?(hol.type==='nacional'?'nac':hol.type==='distrital'?'dist':'fac'):'';
-    evs.forEach(e=>{const ty=typeOf(e);if(ty==='conteudo')sum.conteudo++;else if(ty==='foto')sum.foto++;else sum.grav++;});
-    if(bday) sum.bday++;
 
     const cls=['day'];
     if(weekend) cls.push('day--weekend');
@@ -774,12 +749,6 @@ MONTHS.forEach(([y,m])=>{
   }
   for(let i=0;i<trail;i++) cells+=`<div class="day--pad" aria-hidden="true"></div>`;
 
-  const pills=[];
-  if(sum.conteudo) pills.push(`<span class="mp"><i style="background:${TYPES.conteudo.c}"></i><b>${sum.conteudo}</b> conteúdo</span>`);
-  if(sum.grav) pills.push(`<span class="mp"><i style="background:${TYPES.gravext.c}"></i><b>${sum.grav}</b> ${sum.grav>1?'gravações':'gravação'}</span>`);
-  if(sum.foto) pills.push(`<span class="mp"><i style="background:${TYPES.foto.c}"></i><b>${sum.foto}</b> ${sum.foto>1?'captações de fotos':'captação de fotos'}</span>`);
-  if(sum.bday) pills.push(`<span class="mp"><i style="background:${TYPES.bday.c}"></i><b>${sum.bday}</b> ${sum.bday>1?'aniversários':'aniversário'}</span>`);
-  if(!pills.length) pills.push(`<span class="mp">${total} dias · cronograma em aberto</span>`);
 
   const sec=document.createElement('section');
   sec.className='month reveal';
@@ -789,7 +758,6 @@ MONTHS.forEach(([y,m])=>{
     <div class="month__head">
       <h2 class="month__name">${MN[m]}</h2>
       <span class="month__year">${y}</span>
-      <div class="month__sum">${pills.join('')}</div>
     </div>
     <div class="weekhead">${WDS.map(w=>`<div>${w}</div>`).join('')}</div>
     <div class="grid">${cells}</div>`;
@@ -833,28 +801,6 @@ MONTHS.forEach(([y,m])=>{
     requestAnimationFrame(step);
   });
 })();
-
-/* ============================================================ FILTROS ============================================================ */
-const fltBox=document.getElementById('filters');
-const fltStatus=document.getElementById('fltStatus');
-const clearBtn=document.getElementById('clearFlt');
-const dayEls=[...document.querySelectorAll('.day[data-types]')];
-const countDays=t=>dayEls.filter(el=>el.dataset.types.split(' ').includes(t)).length;
-fltBox.innerHTML=Object.entries(TYPES).map(([k,t])=>
-  `<button class="flt" type="button" data-flt="${k}" aria-pressed="false"${countDays(k)?'':' disabled title="Nenhum dia lançado com este tipo"'}><span class="sw" style="background:${k==='hol'?'rgba(212,175,55,.22)':t.c};${k==='hol'?'border-color:rgba(212,175,55,.5)':''}"></span>${t.label}<em>${countDays(k)}</em></button>`
-).join('');
-let activeFlt=null;
-function setFilter(k){
-  activeFlt=(activeFlt===k)?null:k;
-  fltBox.querySelectorAll('.flt').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.flt===activeFlt)));
-  stage.classList.toggle('filtering',!!activeFlt);
-  let n=0;
-  dayEls.forEach(el=>{const ok=!!activeFlt&&el.dataset.types.split(' ').includes(activeFlt);el.classList.toggle('match',ok);if(ok)n++});
-  clearBtn.hidden=!activeFlt;
-  fltStatus.textContent=activeFlt?`${n} ${n===1?'dia destacado':'dias destacados'} em ${TYPES[activeFlt].label.replace(' 🎉','').toLowerCase()}`:'';
-}
-fltBox.addEventListener('click',e=>{const b=e.target.closest('.flt');if(b)setFilter(b.dataset.flt)});
-clearBtn.addEventListener('click',()=>{activeFlt&&setFilter(activeFlt)});
 
 /* ============================================================ MODAL ============================================================ */
 const modal=document.getElementById('modal');
